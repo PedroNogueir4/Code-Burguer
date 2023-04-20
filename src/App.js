@@ -1,21 +1,25 @@
 import express from "express";
-import routes from "./routes";
+import routes from "./routes.js";
+import Sequelize from "sequelize";
+import configdb from "./config/database.js"
 
-import "./database"
-class App {
-  constructor() {
-    this.app = express();
-    this.middlewares();
-    this.routes();
-  }
+const app = express();
+const sequelize = new Sequelize(configdb)
 
-  middlewares() {
-    this.app.use(express.json());
-  }
-
-  routes() {
-    this.app.use(routes);
-  }
+try {
+  sequelize.authenticate()
+  console.log('Sequelize conectado')
+}
+catch(error) {
+console.log(error)
 }
 
-export default new App().app;
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
+
+
+
+app.use(routes);
+
+
+export  {app,sequelize};
