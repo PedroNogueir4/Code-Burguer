@@ -7,7 +7,7 @@ class UserController {
         const userSchema = Yup.object().shape({
             name: Yup.string().required(),
             email: Yup.string().email().required(),
-            password_hash: Yup.string().required().min(6),
+            password: Yup.string().required().min(6),
             admin: Yup.boolean()
         })
 
@@ -18,7 +18,7 @@ class UserController {
         }
 
 
-        const { name, email, password_hash, admin } = request.body
+        const { name, email, password, admin } = request.body
 
 
         const emailExits = await User.findOne({
@@ -33,7 +33,7 @@ class UserController {
         const user = await User.create({
             name,
             email,
-            password_hash,
+            password,
             admin,
         })
 
