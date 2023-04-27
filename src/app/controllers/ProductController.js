@@ -1,4 +1,4 @@
-import * as Yup from "yup"
+import * as Yup from "yup";
 
 class ProductController {
     async store(request, response) {

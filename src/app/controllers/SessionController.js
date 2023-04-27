@@ -1,5 +1,5 @@
-import * as Yup from "yup"
-import User from "../models/User"
+import * as Yup from "yup";
+import User from "../models/User";
 
 
 class SessionController {
