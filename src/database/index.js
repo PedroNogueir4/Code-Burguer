@@ -3,9 +3,9 @@ import configDataBase from "../config/database";
 
 import User from "../app/models/User";
 import Products from "../app/models/Products";
+import Categories from "../app/models/Categories";
 
-
-const models = [User,Products]
+const models = [User,Products,Categories]
 class Database {
     constructor() {
         this.init()
