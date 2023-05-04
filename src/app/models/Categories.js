@@ -10,6 +10,7 @@ class Categories extends Model {
                 sequelize,
             }
         )
+        return this
     }
 }
 
