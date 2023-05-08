@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const SchemaOrder = new mongoose.Schema(
+const OrderSchema = new mongoose.Schema(
     {
         user: {
             id: {
@@ -50,4 +50,4 @@ const SchemaOrder = new mongoose.Schema(
     }
 )
 
-export default mongoose.model('Order', SchemaOrder)
+export default mongoose.model('Order', OrderSchema)
