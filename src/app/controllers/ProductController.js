@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 import Products from "../models/Products";
 import Categories from "../models/Categories";
+import User from "../models/User";
 class ProductController {
     async store(request, response) {
 
@@ -15,6 +16,12 @@ class ProductController {
         } catch (error) {
             return response.status(400).json({ error: error.errors })
         };
+
+        const { admin: isAdmin } =  await User.findByPk(request.userId)
+    
+        if (!isAdmin) {
+          return response.status(401).json()
+        }
 
         const { filename: path } = request.file
         const { name, price, category_id } = request.body

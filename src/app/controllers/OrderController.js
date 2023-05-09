@@ -2,7 +2,7 @@ import * as Yup from "yup";
 import Products from "../models/Products";
 import Categories from "../models/Categories"
 import Order from "../schemas/Order";
-
+import User from "../models/User";
 class OrderController {
   async store(request, response) {
     const schema = Yup.object().shape({
@@ -85,10 +85,15 @@ class OrderController {
     } catch (error) {
       return response.status(400).json({ error: error.errors });
     }
+    
+    const { admin: isAdmin } =  await User.findByPk(request.userId)
+    
+    if (!isAdmin) {
+      return response.status(401).json()
+    }
 
     const { id } = request.params
     const { status } = request.body
-
 
     try {
       await Order.updateOne({ _id: id }, { status })
