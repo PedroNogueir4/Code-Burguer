@@ -51,7 +51,7 @@ export const P = styled.p`
 export const Inputs = styled.input`
   box-shadow: 3px 3px 10px rgba(74, 144, 226, 0.19);
   border-radius: 5px;
-  border: none;
+  border: ${props => (props.error ? '2px solid #CC1717' : 'none')};
   outline: none;
   height: 30px;
   width: 85%;
@@ -89,4 +89,15 @@ export const SignupLInk = styled.a`
     text-decoration-line: underline;
     margin-left: 5px;
   }
+`
+
+export const ErrorMessage = styled.p`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  margin-top: 3.5px;
+
+  color: #cc1717;
 `
