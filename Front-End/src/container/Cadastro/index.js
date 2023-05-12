@@ -17,6 +17,7 @@ import {
 
 import registerImg from '../../assets/ImgCadastro.png'
 import logo from '../../assets/logo.png'
+import { toast } from 'react-toastify'
 
 function Cadastro() {
   const schema = Yup.object().shape({
@@ -43,12 +44,26 @@ function Cadastro() {
   })
 
   const onSubmit = async clientData => {
-    const response = await api.post('users', {
-      name: clientData.name,
-      email: clientData.email,
-      password: clientData.password
-    })
-    console.log(response)
+    try {
+      const { status } = await api.post(
+        'users',
+        {
+          name: clientData.name,
+          email: clientData.email,
+          password: clientData.password
+        },
+        { validateStatus: () => true }
+      )
+      if (status === 200 || status === 201) {
+        toast.success('Cadastro Realizado com Sucesso!')
+      } else if (status === 409) {
+        toast.error('Email ja cadastrado,faça login para continuar!')
+      } else {
+        throw new Error()
+      }
+    } catch (error) {
+      toast.error('Falha no sistema!,Tente novamente')
+    }
   }
 
   return (

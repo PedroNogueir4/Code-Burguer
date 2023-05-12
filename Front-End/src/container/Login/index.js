@@ -2,6 +2,8 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+
+import { toast } from 'react-toastify'
 import api from '../../services/api'
 
 import Button from '../../components/Button'
@@ -14,7 +16,6 @@ import {
   SignupLInk,
   ErrorMessage
 } from './styles'
-
 import burguerImg from '../../assets/burguerLogin.png'
 import logo from '../../assets/logo.png'
 
@@ -37,11 +38,17 @@ function Login() {
   })
 
   const onSubmit = async clientData => {
-    const response = await api.post('sessions', {
-      email: clientData.email,
-      password: clientData.password
-    })
-    console.log(response)
+    await toast.promise(
+      api.post('sessions', {
+        email: clientData.email,
+        password: clientData.password
+      }),
+      {
+        pending: 'Verificando dados',
+        success: 'Seja Bem-vindo(a)!',
+        error: 'Verifique seus dados!'
+      }
+    )
   }
 
   return (
