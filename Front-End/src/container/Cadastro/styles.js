@@ -7,7 +7,7 @@ export const Container = styled.div`
   grid-template-columns: 1fr 1fr;
 `
 export const ContainerLeft = styled.div`
-  width: 58vw;
+  width: 60vw;
   height: 100vh;
   img {
     height: 100%;
@@ -19,11 +19,14 @@ export const ContainerMain = styled.div`
   display: flex;
   flex-direction: column;
   box-shadow: 0px 4px 15px rgba(74, 144, 226, 0.24);
-  padding: 13%;
+  padding: 15%;
+  padding-top: 8%;
+  padding-bottom: 3%;
+  height: 100vh;
+
   img {
-    width: 49%;
-    height: 20%;
-    margin-bottom: 20%;
+    width: 54%;
+    height: 13%;
     margin-left: 21%;
   }
   h1 {
@@ -33,10 +36,11 @@ export const ContainerMain = styled.div`
     font-size: 24px;
     line-height: 28px;
     margin-left: 36%;
+    margin-top: 3%;
     color: white;
   }
 `
-export const P = styled.p`
+export const Label = styled.p`
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
@@ -79,7 +83,7 @@ export const ErrorMessage = styled.p`
   font-weight: 400;
   font-size: 14px;
   line-height: 16px;
-  margin-top: 3.5px;
+  margin-top: 2px;
 
   color: #cc1717;
 `
