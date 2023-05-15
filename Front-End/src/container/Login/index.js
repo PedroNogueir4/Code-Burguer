@@ -1,10 +1,10 @@
 import React from 'react'
-import { useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { toast } from 'react-toastify'
-import api from '../../services/api'
+import { useUser } from '../../hooks/UserContext'
+import { useForm } from 'react-hook-form'
 
 import Button from '../../components/Button'
 import {
@@ -20,6 +20,8 @@ import burguerImg from '../../assets/burguerLogin.png'
 import logo from '../../assets/logo.png'
 
 function Login() {
+  const { putUserData } = useUser()
+
   const schema = Yup.object().shape({
     email: Yup.string()
       .email('Digite um email válido')
@@ -38,17 +40,27 @@ function Login() {
   })
 
   const onSubmit = async clientData => {
-    await toast.promise(
-      api.post('sessions', {
-        email: clientData.email,
-        password: clientData.password
-      }),
-      {
-        pending: 'Verificando dados',
-        success: 'Seja Bem-vindo(a)!',
-        error: 'Verifique seus dados!'
+    try {
+      const status = await fetch('http://localhost:3001/sessions', {
+        method: 'post',
+        withCredentials: false,
+        headers: { 'Content-Type': 'application/json', Accept: '*' },
+        body: JSON.stringify({
+          email: clientData.email,
+          password: clientData.password
+        })
+      })
+      const result = await status.json()
+
+      if (!result.error) {
+        toast.success('Seja Bem-Vindo!')
+      } else {
+        toast.error('Email ou senha incorretos!')
       }
-    )
+      putUserData(result)
+    } catch (error) {
+      toast.error('Falha no sistema!,Tente novamente')
+    }
   }
 
   return (

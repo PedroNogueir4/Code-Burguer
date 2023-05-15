@@ -5,7 +5,7 @@ import User from "../models/User";
 
 class SessionController {
   async store(request, response) {
-    try {
+    
       const schema = Yup.object().shape({
         email: Yup.string().email().required(),
         password: Yup.string().required(),
@@ -27,10 +27,12 @@ class SessionController {
         where: { email },
       });
 
-      if (!user) emailOrPasswordIncorrect();
+       if (!user) emailOrPasswordIncorrect();
 
       if (!(await user.checkPassword(password))) {
-        emailOrPasswordIncorrect();
+        return response
+        .status(400)
+        .json({ error: "Email or password is incorrect" })
       }
 
       return response.json({
@@ -43,9 +45,8 @@ class SessionController {
         }),
       });
       
-    } catch (error) {
-      console.log(error)
-    }
+   
+    
   }
 }
 export default new SessionController();
