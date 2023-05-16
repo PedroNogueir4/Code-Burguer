@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import api from '../../services/api'
+import { Link } from 'react-router-dom'
 
 import Button from '../../components/Button'
 import {
@@ -108,7 +109,10 @@ function Cadastro() {
           </Button>
         </form>
         <SignupLInk>
-          Já possui conta? <a>Sign In</a>
+          Já possui conta?{' '}
+          <Link style={{ color: 'white' }} to={'/login'}>
+            Sign In
+          </Link>
         </SignupLInk>
       </ContainerMain>
     </Container>
