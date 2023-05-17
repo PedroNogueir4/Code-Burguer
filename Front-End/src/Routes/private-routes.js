@@ -1,17 +1,9 @@
 import React from 'react'
-import { Route, Navigate } from 'react-router-dom'
-import PropTypes from 'prop-types'
+import { Outlet, Navigate } from 'react-router-dom'
 
-const PrivateRoute = async ({ children, redirectTO }) => {
-  const user = await localStorage.getItem('codeburguer:userData')
-  if (!user) {
-    return <Navigate to="/login" />
-  }
+const PrivateRoute = () => {
+  const user = localStorage.getItem('codeburguer:userData')
 
-  return <Route path="/" element={children} />
+  return user ? <Outlet /> : <Navigate to="/login" />
 }
 export default PrivateRoute
-
-PrivateRoute.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.func, PropTypes.element])
-}

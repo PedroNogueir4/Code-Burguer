@@ -10,17 +10,11 @@ function myRoutes() {
   return (
     <Router>
       <Routes>
+        <Route element={<PrivateRoute />}>
+          <Route exact path="/" element={<Home />} />
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/users" element={<Cadastro />} />
-        <Route
-          exact
-          path="/"
-          element={
-            <PrivateRoute redirectTO="/login">
-              <Home />
-            </PrivateRoute>
-          }
-        />
       </Routes>
     </Router>
   )
