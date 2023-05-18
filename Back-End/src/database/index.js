@@ -1,10 +1,10 @@
 import Sequelize from "sequelize";
-import configDataBase from "../config/database";
+import configDataBase from "../config/database.js";
 import mongoose from "mongoose";
 
-import User from "../app/models/User";
-import Products from "../app/models/Products";
-import Categories from "../app/models/Categories";
+import User from "../app/models/User.js";
+import Products from "../app/models/Products.js";
+import Categories from "../app/models/Categories.js";
 
 const models = [User, Products, Categories]
 class Database {

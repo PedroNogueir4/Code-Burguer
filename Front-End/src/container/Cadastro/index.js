@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import api from '../../services/api'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import Button from '../../components/Button'
 import {
@@ -21,6 +21,7 @@ import logo from '../../assets/logo.png'
 import { toast } from 'react-toastify'
 
 function Cadastro() {
+  const navigate = useNavigate()
   const schema = Yup.object().shape({
     name: Yup.string().required('O seu nome é obrigatório'),
     email: Yup.string()
@@ -57,6 +58,7 @@ function Cadastro() {
       )
       if (status === 200 || status === 201) {
         toast.success('Cadastro Realizado com Sucesso!')
+        navigate('/login')
       } else if (status === 409) {
         toast.error('Email ja cadastrado,faça login para continuar!')
       } else {

@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { toast } from 'react-toastify'
 import { useUser } from '../../hooks/UserContext'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import Button from '../../components/Button'
 import {
@@ -21,6 +21,7 @@ import burguerImg from '../../assets/burguerLogin.png'
 import logo from '../../assets/logo.png'
 
 function Login() {
+  const navigate = useNavigate()
   const { putUserData } = useUser()
 
   const schema = Yup.object().shape({
@@ -55,11 +56,13 @@ function Login() {
 
       if (!result.error) {
         toast.success('Seja Bem-Vindo!')
+        navigate('/')
       } else {
         toast.error('Email ou senha incorretos!')
       }
       putUserData(result)
     } catch (error) {
+      console.log(error)
       toast.error('Falha no sistema!,Tente novamente')
     }
   }
