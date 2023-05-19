@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Carousel from 'react-elastic-carousel'
 
 import api from '../../services/api'
+import formatCurrency from '../../utils/formatCurrency'
 import Ofertas from '../../assets/OFERTAS.png'
 import { Container, OfferImg, Button, Image, ContainerItens } from './styles'
 
@@ -9,10 +10,17 @@ function OfferCarousel() {
   const [offers, setOffers] = useState([])
   useEffect(() => {
     async function loadOffers() {
-      // const { data } = await api.get('categories')
-      // setOffers()
+      const { data } = await api.get('products')
+
+      const filterOffers = data
+        .filter(product => product.offer)
+        .map(product => {
+          return { ...product, newCurrency: formatCurrency(product.price) }
+        })
+
+      setOffers(filterOffers)
     }
-    // loadCategory()
+    loadOffers()
   }, [])
 
   const breakPoints = [
@@ -31,13 +39,15 @@ function OfferCarousel() {
         style={{ width: '90%' }}
         breakPoints={breakPoints}
       >
-        {/* {categories &&
-          categories.map(category => (
-            <ContainerItens key={category.id}>
-              <Image src={category.url} />
-              <Button>{category.name}</Button>
+        {offers &&
+          offers.map(offer => (
+            <ContainerItens key={offer.id}>
+              <Image src={offer.url} />
+              <p>{offer.name}</p>
+              <h5>{offer.newCurrency}</h5>
+              <Button>Peça agora</Button>
             </ContainerItens>
-          ))} */}
+          ))}
       </Carousel>
     </Container>
   )

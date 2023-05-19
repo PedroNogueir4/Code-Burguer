@@ -25,12 +25,30 @@ export const Container = styled.div`
   }
 `
 export const OfferImg = styled.img`
-  width: 25%;
+  width: 20%;
 `
 export const ContainerItens = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  p {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 120%;
+    color: #424242;
+    margin-top: 2%;
+    margin-bottom: 4%;
+  }
+  h5 {
+    color: black;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 120%;
+    margin-bottom: 6%;
+  }
 `
 export const Image = styled.img`
   width: 200px;
