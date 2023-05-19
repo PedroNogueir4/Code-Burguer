@@ -8,5 +8,3 @@ export const ContainerLogo = styled.img`
   width: 100vw;
   height: 55vh;
 `
-
-export const ContainerOffer = styled.div``
