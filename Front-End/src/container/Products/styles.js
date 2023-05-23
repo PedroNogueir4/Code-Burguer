@@ -1,8 +1,9 @@
 import { styled } from 'styled-components'
 
 export const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  background-color: #efefef;
 `
 export const ContainerLogo = styled.img`
   width: 100vw;
@@ -24,4 +25,11 @@ export const CategoryButton = styled.button`
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
+`
+export const ContainerItens = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 26%);
+  justify-content: center;
+  gap: 2.2%;
+  padding: 4%;
 `
