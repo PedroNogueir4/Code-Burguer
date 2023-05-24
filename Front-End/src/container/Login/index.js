@@ -7,7 +7,7 @@ import { useUser } from '../../hooks/UserContext'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 
-import Button from '../../components/Button'
+import { Button } from '../../components'
 import {
   ContainerLeft,
   Container,
@@ -20,7 +20,7 @@ import {
 import burguerImg from '../../assets/burguerLogin.png'
 import logo from '../../assets/logo.png'
 
-function Login() {
+export function Login() {
   const navigate = useNavigate()
   const { putUserData } = useUser()
 
@@ -104,5 +104,3 @@ function Login() {
     </Container>
   )
 }
-
-export default Login

@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import api from '../../services/api'
 import { Link, useNavigate } from 'react-router-dom'
 
-import Button from '../../components/Button'
+import { Button } from '../../components'
 import {
   ContainerLeft,
   Container,
@@ -20,7 +20,7 @@ import registerImg from '../../assets/ImgCadastro.png'
 import logo from '../../assets/logo.png'
 import { toast } from 'react-toastify'
 
-function Cadastro() {
+export function Cadastro() {
   const navigate = useNavigate()
   const schema = Yup.object().shape({
     name: Yup.string().required('O seu nome é obrigatório'),
@@ -120,5 +120,3 @@ function Cadastro() {
     </Container>
   )
 }
-
-export default Cadastro
