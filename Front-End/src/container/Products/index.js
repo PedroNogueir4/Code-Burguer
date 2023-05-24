@@ -14,6 +14,7 @@ import {
 function Products() {
   const [categories, setCategories] = useState([])
   const [products, setProducts] = useState([])
+  const [filteredProducts, setFilteredProducts] = useState([])
   const [activeCategory, setActiveCategory] = useState(0)
 
   useEffect(() => {
@@ -33,6 +34,17 @@ function Products() {
     loadProducts()
   }, [])
 
+  useEffect(() => {
+    if (activeCategory === 0) {
+      setFilteredProducts(products)
+    } else {
+      const filterProducts = products.filter(
+        product => product.category_id === activeCategory
+      )
+      setFilteredProducts(filterProducts)
+    }
+  }, [activeCategory, products])
+
   return (
     <Container>
       <ContainerLogo src={productLogo} />
@@ -51,8 +63,8 @@ function Products() {
           ))}
       </CategoryMenu>
       <ContainerItens>
-        {products &&
-          products.map(product => (
+        {filteredProducts &&
+          filteredProducts.map(product => (
             <CardProducts product={product} key={product.id}></CardProducts>
           ))}
       </ContainerItens>
