@@ -11,10 +11,10 @@ function myRoutes() {
       <Routes>
         <Route element={<PrivateRoute />}>
           <Route exact path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/users" element={<Cadastro />} />
-        <Route path="/products" element={<Products />} />
       </Routes>
     </Router>
   )
