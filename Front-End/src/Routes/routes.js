@@ -11,7 +11,7 @@ function myRoutes() {
       <Routes>
         <Route element={<PrivateRoute />}>
           <Route exact path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
+          <Route path="/produtos" element={<Products />} />
           <Route path="/carrinho" element={<Cart />} />
         </Route>
         <Route path="/login" element={<Login />} />

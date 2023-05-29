@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
 
 import productLogo from '../../assets/logoProdutos.png'
-import { CardProducts } from '../../components'
+import { CardProducts, Header } from '../../components'
 import {
   Container,
   ContainerLogo,
@@ -47,6 +47,7 @@ export function Products() {
 
   return (
     <Container>
+      <Header />
       <ContainerLogo src={productLogo} />
       <CategoryMenu>
         {categories &&
