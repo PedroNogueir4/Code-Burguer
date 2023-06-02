@@ -53,14 +53,18 @@ export function Login() {
         })
       })
       const result = await status.json()
-
-      if (!result.error) {
+      console.log(result)
+      if (!result.error && result.admin === true) {
         toast.success('Seja Bem-Vindo!')
+        putUserData(result)
+        navigate('/admin')
+      } else if (!result.error && result.admin === false) {
+        toast.success('Seja Bem-Vindo!')
+        putUserData(result)
         navigate('/')
       } else {
         toast.error('Email ou senha incorretos!')
       }
-      putUserData(result)
     } catch (error) {
       console.log(error)
       toast.error('Falha no sistema!,Tente novamente')
