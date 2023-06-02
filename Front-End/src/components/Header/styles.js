@@ -11,12 +11,13 @@ export const Container = styled.div`
 export const NavigationContainer = styled.div`
   display: flex;
   gap: 20px;
-  button {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    font-size: 15px;
-  }
+`
+export const ButtonNavigate = styled.button`
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 15px;
+  color: ${props => (props.isActive ? '#9758A6' : '#555555')};
 `
 export const ContainerRight = styled.div`
   width: 19%;

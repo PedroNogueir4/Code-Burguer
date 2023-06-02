@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 import { useUser } from '../../hooks/UserContext'
 import {
@@ -7,27 +7,41 @@ import {
   User,
   ContainerRight,
   NavigationContainer,
-  Logout
+  Logout,
+  ButtonNavigate
 } from './styles'
 import userImg from '../../assets/userImg.png'
 import cartImg from '../../assets/cartImg.png'
 
 export function Header() {
   const navigate = useNavigate()
-  const { userData } = useUser()
+  const location = useLocation()
+
+  const { userData, logout } = useUser()
+  const userLogout = () => {
+    logout()
+    navigate('/login')
+  }
 
   return (
     <Container>
       <NavigationContainer>
-        <button onClick={() => navigate('/')} style={{ color: '#9758A6' }}>
+        <ButtonNavigate
+          onClick={() => {
+            navigate('/')
+          }}
+          isActive={location.pathname === '/'}
+        >
           Home
-        </button>
-        <button
-          onClick={() => navigate('/produtos')}
-          style={{ color: '#555555' }}
+        </ButtonNavigate>
+        <ButtonNavigate
+          onClick={() => {
+            navigate('/produtos')
+          }}
+          isActive={location.pathname === '/produtos'}
         >
           Ver produtos
-        </button>
+        </ButtonNavigate>
       </NavigationContainer>
       <ContainerRight>
         <button onClick={() => navigate('/carrinho')}>
@@ -37,7 +51,7 @@ export function Header() {
           <img style={{ marginRight: '10px' }} src={userImg} />
           <div>
             <p>Olá, {userData.name}</p>
-            <Logout>Sair</Logout>
+            <Logout onClick={userLogout}>Sair</Logout>
           </div>
         </User>
       </ContainerRight>
