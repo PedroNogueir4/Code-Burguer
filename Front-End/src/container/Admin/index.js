@@ -1,5 +1,12 @@
 import React from 'react'
 
+import { Container } from './styles'
+import Orders from './Orders'
+
 export function Admin() {
-  return <h1>ADMIN</h1>
+  return (
+    <Container>
+      <Orders />
+    </Container>
+  )
 }
