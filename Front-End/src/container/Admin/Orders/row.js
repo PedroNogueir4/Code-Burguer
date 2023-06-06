@@ -28,12 +28,25 @@ const useRowStyles = makeStyles({
   }
 })
 
-function Row({ row }) {
+function Row({ row, orders, setOrders }) {
   const [open, setOpen] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(false)
   const classes = useRowStyles()
 
   async function setNewStatus(id, status) {
-    await api.put(`orders/${id}`, { status })
+    setIsLoading(true)
+    try {
+      await api.put(`orders/${id}`, { status })
+
+      const newOrders = orders.map(order => {
+        return order._id === id ? { ...order, status } : order
+      })
+      setOrders(newOrders)
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -55,12 +68,14 @@ function Row({ row }) {
         <TableCell>{formatDate(row.date)}</TableCell>
         <TableCell>
           <ReactSelectStyles
-            options={status}
+            options={status.filter(sts => sts.value !== 'Todos')}
             menuPortalTarget={document.body}
+            placeholder="Status"
             defaultValue={status.find(sts => sts.value === row.status) || null}
             onChange={newStatus => {
               setNewStatus(row.orderId, newStatus.value)
             }}
+            isLoading={isLoading}
           />
         </TableCell>
       </TableRow>
@@ -104,6 +119,8 @@ function Row({ row }) {
 export default Row
 
 Row.propTypes = {
+  orders: PropTypes.array,
+  setOrders: PropTypes.func,
   row: PropTypes.shape({
     orderId: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,

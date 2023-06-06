@@ -43,6 +43,19 @@ function Orders() {
     setRows(newRows)
   }, [filteredOrders])
 
+  useEffect(() => {
+    if (activeStatus === 1) {
+      setFilteredOrders(orders)
+    } else {
+      const statusIndex = status.findIndex(sts => sts.id === activeStatus)
+      const newFilteredOrders = orders.filter(
+        order => order.status === status[statusIndex].value
+      )
+      setFilteredOrders(newFilteredOrders)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orders])
+
   function handleStatus(status) {
     if (status.id === 1) {
       setFilteredOrders(orders)
@@ -50,19 +63,17 @@ function Orders() {
       const filterOrders = orders.filter(order => order.status === status.value)
       setFilteredOrders(filterOrders)
     }
+    setActiveStatus(status.id)
   }
-
-  const newStatus = [{ id: 1, label: 'Todos', value: 'Todos' }, ...status]
 
   return (
     <Container>
       <Menu>
-        {newStatus &&
-          newStatus.map(status => (
+        {status &&
+          status.map(status => (
             <LinkMenu
               isActive={activeStatus === status.id}
               onClick={() => {
-                setActiveStatus(status.id)
                 handleStatus(status)
               }}
               key={status.id}
@@ -84,7 +95,12 @@ function Orders() {
           </TableHead>
           <TableBody>
             {rows.map(row => (
-              <Row key={row.orderId} row={row} />
+              <Row
+                key={row.orderId}
+                row={row}
+                orders={orders}
+                setOrders={setOrders}
+              />
             ))}
           </TableBody>
         </Table>

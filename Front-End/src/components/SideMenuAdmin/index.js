@@ -1,0 +1,28 @@
+import React from 'react'
+import { Container, MenuOptions, Button } from './styles'
+import sacolaAdm from '../../assets/sacolaAdm.png'
+import addProdutoAdm from '../../assets/addProdutoAdm.png'
+import produtosAdm from '../../assets/produtosAdm.png'
+
+export function SideMenu() {
+  return (
+    <Container>
+      <MenuOptions>
+        <hr></hr>
+        <Button to={'/pedidos'}>
+          <img src={sacolaAdm} />
+          Pedidos
+        </Button>
+        <Button to={''}>
+          <img src={produtosAdm} />
+          Produtos
+        </Button>
+        <Button to={''}>
+          <img src={addProdutoAdm} />
+          Adicionar Produto
+        </Button>
+        <hr></hr>
+      </MenuOptions>
+    </Container>
+  )
+}

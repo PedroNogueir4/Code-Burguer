@@ -15,7 +15,7 @@ function myRoutes() {
           <Route path="/carrinho" element={<Cart />} />
         </Route>
         <Route element={<RoutesAdmin />}>
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/pedidos" element={<Admin />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/users" element={<Cadastro />} />
