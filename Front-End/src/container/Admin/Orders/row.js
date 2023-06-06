@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import formatCurrency from '../../../utils/formatCurrency'
-import { Container } from './styles'
+import formatDate from '../../../utils/formatDate'
+import api from '../../../services/api'
+import status from './order-status'
+
+import { ReactSelectStyles } from './styles'
 
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
@@ -10,11 +14,9 @@ import IconButton from '@material-ui/core/IconButton'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 
@@ -29,6 +31,10 @@ const useRowStyles = makeStyles({
 function Row({ row }) {
   const [open, setOpen] = React.useState(false)
   const classes = useRowStyles()
+
+  async function setNewStatus(id, status) {
+    await api.put(`orders/${id}`, { status })
+  }
 
   return (
     <React.Fragment>
@@ -46,8 +52,17 @@ function Row({ row }) {
           {row.orderId}
         </TableCell>
         <TableCell>{row.name}</TableCell>
-        <TableCell>{row.date}</TableCell>
-        <TableCell>{row.status}</TableCell>
+        <TableCell>{formatDate(row.date)}</TableCell>
+        <TableCell>
+          <ReactSelectStyles
+            options={status}
+            menuPortalTarget={document.body}
+            defaultValue={status.find(sts => sts.value === row.status) || null}
+            onChange={newStatus => {
+              setNewStatus(row.orderId, newStatus.value)
+            }}
+          />
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -99,7 +114,7 @@ Row.propTypes = {
         name: PropTypes.string.isRequired,
         quantity: PropTypes.number.isRequired,
         category: PropTypes.string.isRequired,
-        price: PropTypes.string.isRequired
+        price: PropTypes.number.isRequired
       })
     ).isRequired
   }).isRequired
