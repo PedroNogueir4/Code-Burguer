@@ -18,6 +18,7 @@ function myRoutes() {
         <Route element={<RoutesAdmin />}>
           <Route path={paths.Order} element={<Admin />} />
           <Route path={paths.ProductsList} element={<Admin />} />
+          <Route path={paths.NewProduct} element={<Admin />} />
         </Route>
         <Route path={paths.Login} element={<Login />} />
         <Route path={paths.Register} element={<Cadastro />} />
