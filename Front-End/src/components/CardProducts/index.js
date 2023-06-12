@@ -6,6 +6,7 @@ import { useCart } from '../../hooks/CartContext'
 import formatCurrency from '../../utils/formatCurrency'
 import { Button } from '../Button'
 import { ContainerProducts, Image, ProductName, ProductPrice } from './styles'
+import paths from '../../constants/paths'
 
 export function CardProducts({ product }) {
   const { putCartProduct } = useCart()
@@ -20,7 +21,7 @@ export function CardProducts({ product }) {
         <Button
           onClick={() => {
             putCartProduct(product)
-            navigate('/carrinho')
+            navigate(paths.Cart)
           }}
           style={{ width: '100%' }}
         >

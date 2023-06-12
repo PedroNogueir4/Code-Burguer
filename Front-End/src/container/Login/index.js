@@ -19,6 +19,7 @@ import {
 } from './styles'
 import burguerImg from '../../assets/burguerLogin.png'
 import logo from '../../assets/logo.png'
+import paths from '../../constants/paths'
 
 export function Login() {
   const navigate = useNavigate()
@@ -57,11 +58,11 @@ export function Login() {
       if (!result.error && result.admin === true) {
         toast.success('Seja Bem-Vindo!')
         putUserData(result)
-        navigate('/pedidos')
+        navigate(paths.Order)
       } else if (!result.error && result.admin === false) {
         toast.success('Seja Bem-Vindo!')
         putUserData(result)
-        navigate('/')
+        navigate(paths.Home)
       } else {
         toast.error('Email ou senha incorretos!')
       }
@@ -100,7 +101,7 @@ export function Login() {
         </form>
         <SignupLInk>
           Não possui conta?{' '}
-          <Link style={{ color: 'white' }} to={'/users'}>
+          <Link style={{ color: 'white' }} to={paths.Register}>
             Sign Up
           </Link>
         </SignupLInk>

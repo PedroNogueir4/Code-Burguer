@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import api from '../../services/api'
 import { Link, useNavigate } from 'react-router-dom'
+import paths from '../../constants/paths'
 
 import { Button } from '../../components'
 import {
@@ -58,7 +59,7 @@ export function Cadastro() {
       )
       if (status === 200 || status === 201) {
         toast.success('Cadastro Realizado com Sucesso!')
-        navigate('/login')
+        navigate(paths.Login)
       } else if (status === 409) {
         toast.error('Email ja cadastrado,faça login para continuar!')
       } else {
@@ -112,7 +113,7 @@ export function Cadastro() {
         </form>
         <SignupLInk>
           Já possui conta?{' '}
-          <Link style={{ color: 'white' }} to={'/login'}>
+          <Link style={{ color: 'white' }} to={paths.Login}>
             Sign In
           </Link>
         </SignupLInk>

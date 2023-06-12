@@ -7,6 +7,7 @@ import api from '../../services/api'
 import formatCurrency from '../../utils/formatCurrency'
 import Ofertas from '../../assets/OFERTAS.png'
 import { Container, OfferImg, Button, Image, ContainerItens } from './styles'
+import paths from '../../constants/paths'
 
 export function OfferCarousel() {
   const [offers, setOffers] = useState([])
@@ -53,7 +54,7 @@ export function OfferCarousel() {
               <Button
                 onClick={() => {
                   putCartProduct(offer)
-                  navigate('/carrinho')
+                  navigate(paths.Cart)
                 }}
               >
                 Peça agora

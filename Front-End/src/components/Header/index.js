@@ -12,6 +12,7 @@ import {
 } from './styles'
 import userImg from '../../assets/userImg.png'
 import cartImg from '../../assets/cartImg.png'
+import paths from '../../constants/paths'
 
 export function Header() {
   const navigate = useNavigate()
@@ -20,7 +21,7 @@ export function Header() {
   const { userData, logout } = useUser()
   const userLogout = () => {
     logout()
-    navigate('/login')
+    navigate(paths.Login)
   }
 
   return (
@@ -28,7 +29,7 @@ export function Header() {
       <NavigationContainer>
         <ButtonNavigate
           onClick={() => {
-            navigate('/')
+            navigate(paths.Home)
           }}
           isActive={location.pathname === '/'}
         >
@@ -36,7 +37,7 @@ export function Header() {
         </ButtonNavigate>
         <ButtonNavigate
           onClick={() => {
-            navigate('/produtos')
+            navigate(paths.Products)
           }}
           isActive={location.pathname === '/produtos'}
         >
@@ -44,7 +45,7 @@ export function Header() {
         </ButtonNavigate>
       </NavigationContainer>
       <ContainerRight>
-        <button onClick={() => navigate('/carrinho')}>
+        <button onClick={() => navigate(paths.Cart)}>
           <img src={cartImg} />
         </button>
         <User>

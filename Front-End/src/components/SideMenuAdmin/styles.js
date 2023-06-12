@@ -27,7 +27,7 @@ export const Button = styled(Link)`
 
   font-size: 13px;
   text-decoration: none;
-  background: #3c3c3c;
+  background: ${props => (props.isActive ? '#565656' : '#3c3c3c')};
   border-radius: 2px;
   border: none;
   height: 37px;
