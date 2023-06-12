@@ -1,10 +1,22 @@
 import React from 'react'
-import { Container, MenuOptions, Button } from './styles'
+import { useUser } from '../../hooks/UserContext'
+import { useNavigate } from 'react-router-dom'
+import { Container, MenuOptions, Button, ContainerUser, Logout } from './styles'
+
 import sacolaAdm from '../../assets/sacolaAdm.png'
 import addProdutoAdm from '../../assets/addProdutoAdm.png'
 import produtosAdm from '../../assets/produtosAdm.png'
+import userImg from '../../assets/userIcon.png'
 
 export function SideMenu() {
+  const { logout, userData } = useUser()
+  const navigate = useNavigate()
+
+  function adminLogout() {
+    logout()
+    navigate('/login')
+  }
+
   return (
     <Container>
       <MenuOptions>
@@ -23,6 +35,13 @@ export function SideMenu() {
         </Button>
         <hr></hr>
       </MenuOptions>
+      <ContainerUser>
+        <img src={userImg} />
+        <div>
+          <p>Olá, {userData.name}</p>
+          <Logout onClick={() => adminLogout()}>Sair</Logout>
+        </div>
+      </ContainerUser>
     </Container>
   )
 }

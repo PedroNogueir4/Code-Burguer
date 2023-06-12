@@ -9,6 +9,9 @@ export const PrivateRoute = () => {
 
 export const RoutesAdmin = () => {
   const user = localStorage.getItem('codeburguer:userData')
+  if (!user) {
+    return <Navigate to="/login" />
+  }
   const verifyAdmin = JSON.parse(user).admin
   return verifyAdmin ? <Outlet /> : <Navigate to="/" />
 }

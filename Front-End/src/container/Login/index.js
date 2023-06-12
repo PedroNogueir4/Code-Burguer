@@ -57,7 +57,7 @@ export function Login() {
       if (!result.error && result.admin === true) {
         toast.success('Seja Bem-Vindo!')
         putUserData(result)
-        navigate('/admin')
+        navigate('/pedidos')
       } else if (!result.error && result.admin === false) {
         toast.success('Seja Bem-Vindo!')
         putUserData(result)

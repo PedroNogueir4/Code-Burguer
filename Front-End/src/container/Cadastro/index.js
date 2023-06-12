@@ -78,7 +78,7 @@ export function Cadastro() {
         <img src={logo} />
         <h1>Cadastro</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Label>Nome</Label>
+          <Label>Primeiro Nome</Label>
           <Inputs
             type="text"
             {...register('name')}
