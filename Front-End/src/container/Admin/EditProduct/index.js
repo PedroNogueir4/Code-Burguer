@@ -2,32 +2,34 @@ import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import api from '../../../services/api'
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined'
 
 import { Button, ErrorMessage } from '../../../components/index'
-import { Container, Label, Inputs, LabelUpload, ReactSelectS } from './styles'
+import {
+  Container,
+  Label,
+  Inputs,
+  LabelUpload,
+  ReactSelectS,
+  ContainerOffer
+} from './styles'
 import paths from '../../../constants/paths'
 
-function NewProduct() {
+function EditProduct() {
   const [fileName, setFileName] = useState(null)
   const [category, setCategory] = useState(null)
   const navigate = useNavigate()
-
+  const { state } = useLocation()
+  console.log(state)
   const schema = Yup.object().shape({
-    name: Yup.string().required('Digite um nome'),
-    price: Yup.string().required('Digite um preço'),
-    category_id: Yup.object().required('Escolha uma categoria'),
-    file: Yup.mixed()
-      .test('required', 'Carregue um arquivo', value => {
-        return value?.length > 0
-      })
-      .test('size', 'Carregue arquivos até 2mb', value => {
-        return value[0]?.size <= 200000
-      })
+    name: Yup.string(),
+    price: Yup.string(),
+    category_id: Yup.object(),
+    offer: Yup.bool()
   })
 
   const {
@@ -38,18 +40,23 @@ function NewProduct() {
   } = useForm({ resolver: yupResolver(schema) })
 
   const onSubmit = async newProduct => {
+    console.log(newProduct.category_id)
     const productDataFormData = new FormData()
     productDataFormData.append('name', newProduct.name)
     productDataFormData.append('price', newProduct.price)
     productDataFormData.append('category_id', newProduct.category_id.id)
     productDataFormData.append('file', newProduct.file[0])
+    productDataFormData.append('offer', newProduct.offer)
 
     try {
-      await toast.promise(api.post('products', productDataFormData), {
-        pending: 'Criando novo produto',
-        success: 'Produto criado com sucesso',
-        error: 'Falha ao criar produto'
-      })
+      await toast.promise(
+        api.put(`products/${state.id}`, productDataFormData),
+        {
+          pending: 'Editando produto',
+          success: 'Produto editado com sucesso',
+          error: 'Falha ao editar produto'
+        }
+      )
 
       setTimeout(() => {
         navigate(paths.ProductsList)
@@ -73,12 +80,16 @@ function NewProduct() {
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Label>Nome</Label>
-          <Inputs type="text" {...register('name')} />
+          <Inputs type="text" {...register('name')} defaultValue={state.name} />
           <ErrorMessage>{errors.name?.message}</ErrorMessage>
         </div>
         <div>
           <Label>Preço</Label>
-          <Inputs type="number" {...register('price')} />
+          <Inputs
+            type="number"
+            {...register('price')}
+            defaultValue={state.price}
+          />
           <ErrorMessage>{errors.price?.message}</ErrorMessage>
         </div>
         <div>
@@ -114,11 +125,18 @@ function NewProduct() {
           />
           <ErrorMessage>{errors.category_id?.message}</ErrorMessage>
         </div>
-
-        <Button style={{ width: '100%' }}>Adicionar Produto</Button>
+        <ContainerOffer>
+          <input
+            type="checkbox"
+            {...register('offer')}
+            defaultChecked={state.offer}
+          />
+          <Label>Produto em oferta?</Label>
+        </ContainerOffer>
+        <Button style={{ width: '100%' }}>Editar Produto</Button>
       </form>
     </Container>
   )
 }
 
-export default NewProduct
+export default EditProduct
