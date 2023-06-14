@@ -72,14 +72,3 @@ export const SignupLInk = styled.a`
     margin-left: 5px;
   }
 `
-
-export const ErrorMessage = styled.p`
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 16px;
-  margin-top: 3.5px;
-
-  color: #cc1717;
-`

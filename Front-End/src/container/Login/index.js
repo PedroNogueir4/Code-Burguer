@@ -7,15 +7,14 @@ import { useUser } from '../../hooks/UserContext'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { Button } from '../../components'
+import { Button, ErrorMessage } from '../../components'
 import {
   ContainerLeft,
   Container,
   ContainerMain,
   P,
   Inputs,
-  SignupLInk,
-  ErrorMessage
+  SignupLInk
 } from './styles'
 import burguerImg from '../../assets/burguerLogin.png'
 import logo from '../../assets/logo.png'

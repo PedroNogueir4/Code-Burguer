@@ -6,15 +6,14 @@ import api from '../../services/api'
 import { Link, useNavigate } from 'react-router-dom'
 import paths from '../../constants/paths'
 
-import { Button } from '../../components'
+import { Button, ErrorMessage } from '../../components'
 import {
   ContainerLeft,
   Container,
   ContainerMain,
   Label,
   Inputs,
-  SignupLInk,
-  ErrorMessage
+  SignupLInk
 } from './styles'
 
 import registerImg from '../../assets/ImgCadastro.png'
